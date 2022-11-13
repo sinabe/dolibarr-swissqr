@@ -9,6 +9,7 @@
  * Copyright (C) 2015		Marcos García		<marcosgdf@gmail.com>
  * Copyright (C) 2017-2018	Ferran Marcet		<fmarcet@2byte.es>
  * Copyright (C) 2018-2020  Frédéric France     <frederic.france@netlogic.fr>
+ * Copyright (C) 2022		Sinabe Sàrl, Benoit Vianin
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -148,8 +149,8 @@ class pdf_swissqr extends ModelePDFFactures
 		$langs->loadLangs(array("main", "bills"));
 
 		$this->db = $db;
-		$this->name = "crabe";
-		$this->description = $langs->trans('PDFCrabeDescription');
+		$this->name = "SwissQR";
+		$this->description = 'Swiss QR invoice';
 		$this->update_main_doc_field = 1; // Save the name of generated file as the main doc when generating a doc with this template
 
 		// Dimension page
@@ -1328,6 +1329,9 @@ class pdf_swissqr extends ModelePDFFactures
 					}
 					$account = new Account($this->db);
 					$account->fetch($bankid);
+
+					// Copy the IBAN outside the tableau_info function
+                    $object->iban = $account->iban;
 
 					$curx = $this->marge_gauche;
 					$cury = $posy;
