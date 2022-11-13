@@ -18,7 +18,7 @@ This set of files is actually tested on Dolibarr 16.0.1 with PHP 7.4.29
 
 # QR facture suisse pour Dolibarr
 
-Ce dépôt est un ensemble de fichier pour ajouter la facture QR suisse à l'ERP/CRM Dolibarr
+Ce dépôt est un ensemble de fichiers pour ajouter la facture QR suisse à l'ERP/CRM Dolibarr
 
 ## Prérequis
 
@@ -26,7 +26,7 @@ Ces fichiers sont actuellement testés avec Dolibarr 16.0.1 et PHP 7.4.29
 
 ## Installation
 
-1. Copier l'ensemble des fichier dans les mêmes répertoires de votre installation Dolibarr.
+1. Copier l'ensemble des fichiers dans les mêmes répertoires de votre installation Dolibarr.
 2. Activer le modèle de facture dans Configuration->Modules/Applications -> Factures
 
 # Swiss QR Invoice für Dolibarr
