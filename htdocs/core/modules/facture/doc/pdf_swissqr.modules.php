@@ -9,7 +9,7 @@
  * Copyright (C) 2015		Marcos García		<marcosgdf@gmail.com>
  * Copyright (C) 2017-2018	Ferran Marcet		<fmarcet@2byte.es>
  * Copyright (C) 2018-2020  Frédéric France     <frederic.france@netlogic.fr>
- * Copyright (C) 2022		Sinabe Sàrl, Benoit Vianin
+ * Copyright (C) 2022-2023	Sinabe Sàrl, Benoit Vianin
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -857,7 +857,7 @@ class pdf_swissqr extends ModelePDFFactures
 				// Add page for the Swiss QR-invoice
                 $pdf->AddPage();
                 $this->_pagehead($pdf, $object, 0, $outputlangs);
-                $this->qrinvoice($pdf, $object);
+                $this->qrinvoice($pdf, $object, $outputlangs);
 
 				$pdf->Close();
 
@@ -897,8 +897,9 @@ class pdf_swissqr extends ModelePDFFactures
      * 
      * @param object TFTP object
      * @param object the Dolibarr invoice object
+	 * @param object the Dolibarr langs object
      */
-    protected function qrinvoice($pdf, $object)
+    protected function qrinvoice($pdf, $object, $langs)
     {
         // Create a new instance of QrBill, containing default headers with fixed values
         $qrBill = QrBill\QrBill::create();
@@ -960,7 +961,15 @@ class pdf_swissqr extends ModelePDFFactures
             exit;
         }
 
-        $output = new QrBill\PaymentPart\Output\TcPdfOutput\TcPdfOutput($qrBill, 'fr', $pdf);
+		// Define the translation to use
+		if ($langs->shortlang == 'de' || $langs->shortlang == 'fr' || $langs->shortlang == 'it' || $langs->shortlang == 'en')
+		{
+			$output = new QrBill\PaymentPart\Output\TcPdfOutput\TcPdfOutput($qrBill, $langs->shortlang, $pdf);
+		} else 
+		{
+			$output = new QrBill\PaymentPart\Output\TcPdfOutput\TcPdfOutput($qrBill, 'en', $pdf);
+		}
+
         $output->setPrintable(false)->getPaymentPart();
     }
 
