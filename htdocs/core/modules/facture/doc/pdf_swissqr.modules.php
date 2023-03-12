@@ -855,9 +855,12 @@ class pdf_swissqr extends ModelePDFFactures
                 }
 
                 // Add page for the Swiss QR-invoice
-                $pdf->AddPage();
-                $this->_pagehead($pdf, $object, 0, $outputlangs);
-                $this->qrinvoice($pdf, $object, $outputlangs, $conf);
+                if (isset($object->iban))
+                {
+                    $pdf->AddPage();
+                    $this->_pagehead($pdf, $object, 0, $outputlangs);
+                    $this->qrinvoice($pdf, $object, $outputlangs, $conf);
+                }
 
                 $pdf->Close();
 
