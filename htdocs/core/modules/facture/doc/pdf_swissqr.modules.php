@@ -961,14 +961,8 @@ class pdf_swissqr extends ModelePDFFactures
             exit;
         }
 
-		// Define the translation to use
-		if ($langs->shortlang == 'de' || $langs->shortlang == 'fr' || $langs->shortlang == 'it' || $langs->shortlang == 'en')
-		{
-			$output = new QrBill\PaymentPart\Output\TcPdfOutput\TcPdfOutput($qrBill, $langs->shortlang, $pdf);
-		} else 
-		{
-			$output = new QrBill\PaymentPart\Output\TcPdfOutput\TcPdfOutput($qrBill, 'en', $pdf);
-		}
+        $qrLang = in_array($langs->shortlang, ['de', 'fr', 'it']) ? $langs->shortlang : 'en';
+        $output = new QrBill\PaymentPart\Output\TcPdfOutput\TcPdfOutput($qrBill, $qrLang, $pdf);
 
         $output->setPrintable(false)->getPaymentPart();
     }
