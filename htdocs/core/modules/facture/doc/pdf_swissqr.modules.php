@@ -928,14 +928,12 @@ class pdf_swissqr extends ModelePDFFactures
 
             $ref = $object->ref;
 
-            if (str_contains($ref, 'FA'))
+            if (str_contains($ref, 'PROV'))
             {
-                // Remove FA and - from the invoice reference
-                $ref = str_replace('FA', '', $ref);
-                $ref = str_replace('-', '', $ref);
-            } else {
                 $ref = 0;
             }
+
+            $ref = preg_replace('/[^0-9]/', '', $ref);
 
             // Add payment reference for QR-IBAN
             // This is what you will need to identify incoming payments.
