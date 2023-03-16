@@ -460,7 +460,8 @@ class pdf_swissqr extends ModelePDFFactures
                 if (! empty($conf->global->INVOICE_ADD_ZATCA_QR_CODE)) {
                     $qrcodestring = $object->buildZATCAQRString();
                 } elseif (! empty($conf->global->INVOICE_ADD_SWISS_QR_CODE)) {
-                    $qrcodestring = $object->buildSwitzerlandQRString();
+                    // Do not allow another QR code; this module is about having the legit one.
+                    // $qrcodestring = $object->buildSwitzerlandQRString();
                 }
                 if ($qrcodestring) {
                     $qrcodecolor = array('25', '25', '25');
@@ -859,6 +860,7 @@ class pdf_swissqr extends ModelePDFFactures
                 {
                     $pdf->AddPage();
                     $this->_pagehead($pdf, $object, 0, $outputlangs);
+                    $pdf->SetTextColor(0, 0, 0);
                     $this->qrinvoice($pdf, $object, $outputlangs, $conf);
                 }
 
