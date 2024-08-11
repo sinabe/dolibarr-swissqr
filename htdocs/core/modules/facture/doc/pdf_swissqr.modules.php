@@ -9,7 +9,7 @@
  * Copyright (C) 2015		Marcos García		<marcosgdf@gmail.com>
  * Copyright (C) 2017-2018	Ferran Marcet		<fmarcet@2byte.es>
  * Copyright (C) 2018-2020  Frédéric France     <frederic.france@netlogic.fr>
- * Copyright (C) 2022-2023	Sinabe Sàrl, Benoit Vianin
+ * Copyright (C) 2022-2024	Sinabe Sàrl, Benoit Vianin
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -861,7 +861,7 @@ class pdf_swissqr extends ModelePDFFactures
                     $pdf->AddPage();
                     $this->_pagehead($pdf, $object, 0, $outputlangs);
                     $pdf->SetTextColor(0, 0, 0);
-                    $this->qrinvoice($pdf, $object, $outputlangs, $conf);
+                    $this->qrinvoice($pdf, $object, $deja_regle, $outputlangs, $conf);
                 }
 
                 $pdf->Close();
@@ -905,7 +905,7 @@ class pdf_swissqr extends ModelePDFFactures
      * @param object the Dolibarr langs object
      * @param object the Dolibarr configuration
      */
-    protected function qrinvoice($pdf, $object, $langs, $conf)
+    protected function qrinvoice($pdf, $object, $deja_regle, $langs, $conf)
     {
         // Create a new instance of QrBill, containing default headers with fixed values
         $qrBill = QrBill\QrBill::create();
@@ -970,12 +970,17 @@ class pdf_swissqr extends ModelePDFFactures
                 'CH'
             ));
 
+        // Calculate total with taxes
+        $creditnoteamount = $object->getSumCreditNotesUsed((!empty($conf->multicurrency->enabled) && $object->multicurrency_tx != 1) ? 1 : 0); // Warning, this also include excess received
+        $depositsamount = $object->getSumDepositsUsed((!empty($conf->multicurrency->enabled) && $object->multicurrency_tx != 1) ? 1 : 0);
+        $balance = price2num($object->total_ttc - $deja_regle - $creditnoteamount - $depositsamount, 'MT');
+
         // Add payment amount information
         // What amount is to be paid?
         $qrBill->setPaymentAmountInformation(
             QrBill\DataGroup\Element\PaymentAmountInformation::create(
                 'CHF',
-                $object->total_ttc
+                $balance
             ));
 
         // Optionally, add some human-readable information about what the bill is for.
