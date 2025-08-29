@@ -25,7 +25,7 @@
  */
 
 use Sprain\SwissQrBill as QrBill;
-require_once DOL_DOCUMENT_ROOT.'/custom/swissqr/includes/vendor/autoload.php';
+require_once DOL_DOCUMENT_ROOT.'/custom/swissqr/vendor/autoload.php';
 
 require_once DOL_DOCUMENT_ROOT.'/core/modules/facture/modules_facture.php';
 require_once DOL_DOCUMENT_ROOT.'/core/modules/facture/doc/pdf_sponge.modules.php';
