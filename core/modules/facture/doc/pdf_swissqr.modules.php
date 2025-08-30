@@ -101,7 +101,7 @@ class pdf_swissqr extends pdf_sponge
                     '',
                     $object->account->owner_zip,
                     $object->account->owner_town,
-                    'CH'
+                    $object->account->country_code
                 )
             );
         } else {
@@ -112,7 +112,7 @@ class pdf_swissqr extends pdf_sponge
                     '',
                     $this->emetteur->zip,
                     $this->emetteur->town,
-                    'CH'
+                    $this->emetteur->country_code
                 )
             );
         }
@@ -166,7 +166,7 @@ class pdf_swissqr extends pdf_sponge
                 '',
                 $object->thirdparty->zip,
                 $object->thirdparty->town,
-                'CH'
+                $object->thirdparty->country_code
             ));
 
         // Calculate total with taxes
