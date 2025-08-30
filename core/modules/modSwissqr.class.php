@@ -153,7 +153,7 @@ class modSwissqr extends DolibarrModules
 		//                             2 => array('SWISSQR_MYNEWCONST2', 'chaine', 'myvalue', 'This is another constant to add', 0, 'current', 1)
 		// );
 		$this->const = array(
-			1 => array('INVOICE_ADD_SWISS_QR_CODE', 'chaine', 'bottom', '', 1)
+			1 => array('INVOICE_ADD_SWISS_QR_CODE', 'chaine', 'bottom', '', 0, 'current', 1)
 		);
 		// error_log("You messed up!", 0);
 	}
