@@ -39,17 +39,17 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/pdf.lib.php';
  */
 class pdf_swissqr extends pdf_sponge
 {
-	/**
-	 *	Constructor
-	 *
-	 *  @param		DoliDB		$db      Database handler
-	 */
-	public function __construct($db)
-	{
+    /**
+     *	Constructor
+     *
+     *  @param		DoliDB		$db      Database handler
+     */
+    public function __construct($db)
+    {
         parent::__construct($db);
         $this->name = "SwissQR";
-		$this->description = 'Swiss QR invoice based on sponge model';
-	}
+        $this->description = 'Swiss QR invoice based on sponge model';
+    }
 
     public function addBottomQRInvoice($pdf, $object, $langs): bool
     {
@@ -84,9 +84,9 @@ class pdf_swissqr extends pdf_sponge
     protected function qrinvoice($pdf, $object, $langs)
     {
         if (empty($object->fk_account)) {
-			$this->error = 'Bank account must be defined to use this feature';
-			return false;
-		}
+            $this->error = 'Bank account must be defined to use this feature';
+            return false;
+        }
 
         // Create a new instance of QrBill, containing default headers with fixed values
         $qrBill = QrBill\QrBill::create();
@@ -170,22 +170,31 @@ class pdf_swissqr extends pdf_sponge
             ));
 
         // Calculate total with taxes
-        $deja_regle = $object->getSommePaiement((isModEnabled("multicurrency") && $object->multicurrency_tx != 1) ? 1 : 0);
-        $creditnoteamount = $object->getSumCreditNotesUsed((!empty($conf->multicurrency->enabled) && $object->multicurrency_tx != 1) ? 1 : 0); // Warning, this also include excess received
-        $depositsamount = $object->getSumDepositsUsed((!empty($conf->multicurrency->enabled) && $object->multicurrency_tx != 1) ? 1 : 0);
-        $balance = price2num($object->total_ttc - $deja_regle - $creditnoteamount - $depositsamount, 'MT');
-  
+        $deja_regle = $object->getSommePaiement((isModEnabled("multicurrency") && $object->multicurrency_tx != 1) ? 1 : 0);        
+        $amount_credit_notes_included = $object->getSumCreditNotesUsed((isModEnabled("multicurrency") && $object->multicurrency_tx != 1) ? 1 : 0);
+        $amount_deposits_included = $object->getSumDepositsUsed((isModEnabled("multicurrency") && $object->multicurrency_tx != 1) ? 1 : 0);
+        $total_ttc = (isModEnabled("multicurrency") && $object->multicurrency_tx != 1) ? $object->multicurrency_total_ttc : $object->total_ttc;
+
+        $balance = price2num($total_ttc - $deja_regle - $amount_credit_notes_included - $amount_deposits_included, 'MT');
+
         if ($balance < 0) {
             $balance = 0;
         }
 
-        // Add payment amount information
-        // What amount is to be paid?
-        $qrBill->setPaymentAmountInformation(
-            QrBill\DataGroup\Element\PaymentAmountInformation::create(
-                'CHF',
-                $balance
-            ));
+        $currencyinvoicecode = $object->multicurrency_code ? $object->multicurrency_code : $conf->currency;
+
+        if ($currencyinvoicecode == "CHF" || $currencyinvoicecode == "EUR") {
+            // Add payment amount information
+            // What amount is to be paid?
+            $qrBill->setPaymentAmountInformation(
+                QrBill\DataGroup\Element\PaymentAmountInformation::create(
+                    $currencyinvoicecode,
+                    $balance
+                ));
+        } else {
+            $this->error = "Only CHF or EUR currencies accepted";
+            return false;
+        }
 
         // Optionally, add some human-readable information about what the bill is for.
         $qrBill->setAdditionalInformation(
