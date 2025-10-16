@@ -1,4 +1,6 @@
 {
+    "name": "sinabe/dolibarr-swissqr",
+    "description": "Dolibarr SwissQR",
     "config": {
         "platform": {
             "php": "8.1.0"

@@ -1,11 +1,11 @@
 #!/bin/bash
 
-docker run --rm --interactive --tty --volume ./includes:/app composer update --ignore-platform-req=ext-bcmath
+docker run --rm --interactive --tty --volume $(pwd):/app composer update --ignore-platform-req=ext-bcmath
 
-# Clean up vendor directory
 
-if [ -d includes/vendor/sprain/swiss-qr-bill/example ]; then
-  rm -rf includes/vendor/sprain/swiss-qr-bill/example
+# Nettoyage du dossier vendor
+if [ -d vendor/sprain/swiss-qr-bill/example ]; then
+  rm -rf vendor/sprain/swiss-qr-bill/example
 fi
 
 cd ..
