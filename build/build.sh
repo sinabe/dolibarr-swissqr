@@ -13,4 +13,4 @@ cd ..
 if [ -f swissqr.zip ]; then
   rm swissqr.zip
 fi
-zip -r swissqr.zip swissqr -x "swissqr/.git*"
+zip -r swissqr.zip swissqr -x "swissqr/.git*" "swissqr/build/*"
