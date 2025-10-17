@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Extract version of the module
+file=$(pwd)"/core/modules/modSwissqr.class.php"
+version=$(grep -oE '[0-9]+\.[0-9]+\.[0-9]+' "$file" 2>/dev/null)
+
 docker run --rm --interactive --tty --volume ./includes:/app composer update --ignore-platform-req=ext-bcmath
 
 # Clean up vendor directory
@@ -33,4 +37,10 @@ cd ..
 if [ -f swissqr.zip ]; then
   rm swissqr.zip
 fi
+
 zip -r swissqr.zip swissqr -x "swissqr/.git*" "swissqr/build/*"
+
+# Rename ZIP file
+if [ -f swissqr.zip ]; then
+  mv "swissqr.zip" "swissqr-${version}.zip"
+fi
