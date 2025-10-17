@@ -20,4 +20,4 @@
 # Module label 'ModuleSwissqrName'
 ModuleSwissqrName = Swissqr
 # Module description 'ModuleSwissqrDesc'
-ModuleSwissqrDesc = Swiss QR Invoice for Dolibarr
+ModuleSwissqrDesc = Swiss QR bill for Dolibarr
