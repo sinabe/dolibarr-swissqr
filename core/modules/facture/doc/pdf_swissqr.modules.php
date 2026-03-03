@@ -129,7 +129,7 @@ class pdf_swissqr extends pdf_sponge
 
             if (str_contains($ref, 'PROV'))
             {
-                $ref = 0;
+                $ref = 1;
             }
 
             $ref = preg_replace('/[^0-9]/', '', $ref);
