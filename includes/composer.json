@@ -5,6 +5,6 @@
         }
     },
     "require": {
-        "sprain/swiss-qr-bill": "^4.20"
+        "sprain/swiss-qr-bill": ">=4.20"
     }
 }

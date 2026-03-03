@@ -212,6 +212,6 @@ class pdf_swissqr extends pdf_sponge
             $output = new QrBill\PaymentPart\Output\TcPdfOutput\TcPdfOutput($qrBill, 'en', $pdf);
         }
 
-        $output->setPrintable(false)->getPaymentPart();
+        $output->getPaymentPart();
     }
 }
