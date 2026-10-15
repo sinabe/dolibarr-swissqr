@@ -14,7 +14,7 @@ For more information: https://www.six-group.com/en/products-services/banking-ser
 
 ## Requirements
 - PHP ≥ 8.1
-- Dolibarr ≥ 18, compatible up to 22
+- Dolibarr ≥ 18, compatible up to 23
 
 ## Installation
 
@@ -73,7 +73,7 @@ Pour plus d'informations : https://www.six-group.com/en/products-services/bankin
 ## Exigences
 
 - PHP ≥ 8.1
-- Dolibarr ≥ 18, compatible jusqu'à 22
+- Dolibarr ≥ 18, compatible jusqu'à 23
 
 ## Installation
 
@@ -102,7 +102,7 @@ Weitere Informationen: https://www.six-group.com/en/products-services/banking-se
 ## Anforderungen
 
 - PHP ≥ 8.1
-- Dolibarr ≥ 18, kompatibel bis 22
+- Dolibarr ≥ 18, kompatibel bis 23
 
 ## Installation
 
@@ -131,7 +131,7 @@ Per ulteriori informazioni: https://www.six-group.com/en/products-services/banki
 ## Requisiti
 
 - PHP ≥ 8.1
-- Dolibarr ≥ 18, compatibile fino a 22
+- Dolibarr ≥ 18, compatibile fino a 23
 
 ## Installazione
 
