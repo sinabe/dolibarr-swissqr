@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (C) 2022-2025  Sinabe Sàrl, Benoit Vianin
+ * Copyright (C) 2022-2026  Sinabe Sàrl, Benoit Vianin
  * Copyright (C) 2023       Didier Raboud
  *
  * This program is free software; you can redistribute it and/or modify
@@ -25,7 +25,7 @@
  */
 
 use Sprain\SwissQrBill as QrBill;
-require_once DOL_DOCUMENT_ROOT.'/custom/swissqr/includes/vendor/autoload.php';
+require_once __DIR__.'/../../../../includes/vendor/autoload.php';
 
 require_once DOL_DOCUMENT_ROOT.'/core/modules/facture/modules_facture.php';
 require_once DOL_DOCUMENT_ROOT.'/core/modules/facture/doc/pdf_sponge.modules.php';
@@ -53,6 +53,8 @@ class pdf_swissqr extends pdf_sponge
 
     public function addBottomQRInvoice($pdf, $object, $langs): bool
     {
+        global $conf;
+        
         $bankid = ($object->fk_account <= 0 ? $conf->global->FACTURE_RIB_NUMBER : $object->fk_account);
         if ($object->fk_bank > 0) {
             $bankid = $object->fk_bank; // For backward compatibility when object->fk_account is forced with object->fk_bank
@@ -83,6 +85,8 @@ class pdf_swissqr extends pdf_sponge
      */
     protected function qrinvoice($pdf, $object, $langs)
     {
+        global $conf;
+
         if (empty($object->fk_account)) {
             $this->error = 'Bank account must be defined to use this feature';
             return false;
