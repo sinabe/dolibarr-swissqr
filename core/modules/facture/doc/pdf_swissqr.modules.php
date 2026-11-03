@@ -128,20 +128,29 @@ class pdf_swissqr extends pdf_sponge
         $creditorInformation = QrBill\DataGroup\Element\CreditorInformation::create($object->account->iban);
 
         if ($creditorInformation->containsQrIban()) {
-
-            $ref = $object->ref;
-
-            if (str_contains($ref, 'PROV'))
-            {
+            
+            // Prepare reference number
+            if (str_contains($object->ref, 'PROV')) {
                 $ref = 1;
+            } else {
+                $ref = $object->ref;
             }
 
             $ref = preg_replace('/[^0-9]/', '', $ref);
 
+            // Get account-specific BESR-ID, falling back to global configuration
+            $key = 'SI_SWISSQR_REF_' . $object->account->ref;
+
+            if (isset($conf->global->{$key})) {
+                $besrid = $conf->global->{$key};
+            } else {
+                $besrid = $conf->global->SI_SWISSQR_REF;
+            }
+
             // Add payment reference for QR-IBAN
             // This is what you will need to identify incoming payments.
             $referenceNumber = QrBill\Reference\QrPaymentReferenceGenerator::generate(
-                $conf->global->SI_SWISSQR_REF,  // You receive this number from your bank (BESR-ID). Unless your bank is PostFinance, in that case use NULL.
+                $besrid,  // You receive this number from your bank (BESR-ID). Unless your bank is PostFinance, in that case use NULL.
                 $ref // A number to match the payment with your internal data, e.g. an invoice number
             );
         
