@@ -23,7 +23,15 @@ For more information: https://www.six-group.com/en/products-services/banking-ser
 3. Activate the Swiss QR module
 4. Activate the model in Setup -> Modules/Applications -> Invoices
 5. You need to configure a bank account with an IBAN or QR-IBAN (reference number).
-6. In case of QR-IBAN add the variable SI_SWISSQR_REF in Setup -> Other Setup. You receive this number from your bank (BESR-ID). For Postfinance value is 00000.
+6. For QR-IBAN payments, configure the BESR-ID in Setup → Other Setup using the variable SI_SWISSQR_REF.
+    The BESR-ID is provided by your bank and is required to generate the QR payment reference.
+
+    You can configure a BESR-ID for each bank account using the variable SI_SWISSQR_REF_{ACCOUNT_REF}, where {ACCOUNT_REF} is the reference of the bank account in Dolibarr.
+
+    - Account-specific configuration (SI_SWISSQR_REF_{ACCOUNT_REF}) takes priority.
+    - If no account-specific value is configured, the global SI_SWISSQR_REF value is used as a fallback.
+    - For PostFinance, use 00000 as the BESR-ID.
+    Note: A valid BESR-ID configuration is mandatory for QR-IBAN payments.
 
 ## How to build the module
 To build the module, follow these steps:
@@ -82,7 +90,17 @@ Pour plus d'informations : https://www.six-group.com/en/products-services/bankin
 3. Activez le module Swiss QR
 4. Activer le modèle dans Configuration -> Modules/Applications -> Factures et avoirs
 5. Vous devez configurer un compte bancaire avec un IBAN ou un IBAN QR (numéro de référence).
-6. En cas d'utilisation d'un IBAN-QR, ajoutez la variable SI_SWISSQR_REF dans Setup -> Autres paramètres. Ce numéro provient de votre banque (BESR-ID). Pour Postfinance, la valeur est 00000.
+6. Pour les paiements avec un QR-IBAN, configurez le BESR-ID dans Configuration → Autres paramètres à l'aide de la variable SI_SWISSQR_REF.
+
+    Le BESR-ID est fourni par votre banque et est nécessaire pour générer la référence de paiement QR.
+
+    Vous pouvez configurer un BESR-ID pour chaque compte bancaire à l'aide de la variable SI_SWISSQR_REF_{ACCOUNT_REF}, où {ACCOUNT_REF} correspond à la référence du compte bancaire dans Dolibarr.
+
+    - La configuration spécifique au compte (SI_SWISSQR_REF_{ACCOUNT_REF}) est prioritaire.
+    - Si aucune valeur spécifique au compte n'est configurée, la valeur globale SI_SWISSQR_REF est utilisée comme solution de remplacement.
+    - Pour PostFinance, utilisez 00000 comme BESR-ID.
+
+    Remarque : La configuration d'un BESR-ID valide est obligatoire pour les paiements avec un QR-IBAN.
 
 # Swiss QR-Rechnung für Dolibarr
 
@@ -111,7 +129,17 @@ Weitere Informationen: https://www.six-group.com/en/products-services/banking-se
 3. Aktivieren Sie das Modul Swiss QR
 4. Aktivieren Sie die Vorlage in Einstellungen -> Modul/Applikationen -> Rechnungen
 5. Sie müssen ein Bankkonto mit IBAN oder QR-IBAN (Referenznummer) konfigurieren.
-6. Falls Sie QR-IBAN verwenden, fügen Sie die Variable SI_SWISSQR_REF in Setup -> Andere Einstellungen hinzu. Sie erhalten diese Nummer von Ihrer Bank (BESR-ID). Für Postfinance ist der Wert 00000.
+6. Für Zahlungen mit QR-IBAN konfigurieren Sie die BESR-ID unter Konfiguration → Weitere Einstellungen mithilfe der Variable SI_SWISSQR_REF.
+
+    Die BESR-ID wird von Ihrer Bank bereitgestellt und ist erforderlich, um die QR-Zahlungsreferenz zu generieren.
+
+    Sie können für jedes Bankkonto eine eigene BESR-ID konfigurieren. Verwenden Sie dazu die Variable SI_SWISSQR_REF_{ACCOUNT_REF}, wobei {ACCOUNT_REF} der Referenz des Bankkontos in Dolibarr entspricht.
+
+    - Die kontospezifische Konfiguration (SI_SWISSQR_REF_{ACCOUNT_REF}) hat Vorrang.
+    - Wenn kein kontospezifischer Wert konfiguriert ist, wird ersatzweise der globale Wert SI_SWISSQR_REF verwendet.
+    - Für PostFinance verwenden Sie 00000 als BESR-ID.
+
+    Hinweis: Für Zahlungen mit QR-IBAN ist eine gültige BESR-ID-Konfiguration erforderlich.
 
 # Swiss QR-fattura per Dolibarr
 
@@ -140,4 +168,14 @@ Per ulteriori informazioni: https://www.six-group.com/en/products-services/banki
 3. Attiva il modulo Swiss QR
 4. Attivare il modello in Impostazioni -> Moduli/Applicazioni -> Fornitori
 5. Devi configurare un conto bancario con un IBAN o QR-IBAN (numero di riferimento).
-6. In caso di utilizzo di un IBAN QR, aggiungi la variabile SI_SWISSQR_REF in Impostazioni -> Altri Impostazioni. Questo numero viene fornito dalla tua banca (BESR-ID). Per Postfinance il valore è 00000.
+6. Per i pagamenti con QR-IBAN, configurare il BESR-ID in Configurazione → Altre impostazioni utilizzando la variabile SI_SWISSQR_REF.
+
+    Il BESR-ID viene fornito dalla vostra banca ed è necessario per generare il riferimento di pagamento QR.
+
+    È possibile configurare un BESR-ID specifico per ogni conto bancario utilizzando la variabile SI_SWISSQR_REF_{ACCOUNT_REF}, dove {ACCOUNT_REF} corrisponde al riferimento del conto bancario in Dolibarr.
+
+    - La configurazione specifica del conto (SI_SWISSQR_REF_{ACCOUNT_REF}) ha la priorità.
+    - Se non è configurato alcun valore specifico per il conto, viene utilizzato come alternativa il valore globale SI_SWISSQR_REF.
+    - Per PostFinance, utilizzare 00000 come BESR-ID.
+
+    Nota: Per i pagamenti con QR-IBAN è obbligatoria una configurazione BESR-ID valida.
